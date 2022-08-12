@@ -1,0 +1,60 @@
+Last login: Mon Apr 18 09:06:28 on ttys000
+(base) rijuljain@Rijuls-MacBook-Pro ~ % cat /etc/shells
+# List of acceptable shells for chpass(1).
+# Ftpd will not allow users to connect who are not using
+# one of these shells.
+
+/bin/bash
+/bin/csh
+/bin/dash
+/bin/ksh
+/bin/sh
+/bin/tcsh
+/bin/zsh
+(base) rijuljain@Rijuls-MacBook-Pro ~ % ls -a
+.			.config			.vscode			Movies
+..			.continuum		.xonshrc		Music
+.CFUserTextEncoding	.cups			.zprofile		Pictures
+.DS_Store		.eclipse		.zsh_history		Public
+.Trash			.idlerc			.zsh_sessions		PycharmProjects
+.anaconda		.ipynb_checkpoints	.zshrc			Untitled.ipynb
+.atom			.ipython		Applications		eclipse
+.bash_profile		.jupyter		Desktop			eclipse-workspace
+.cache			.oracle_jre_usage	Documents		get-pip.py
+.conda			.p2			Downloads		hello world.ipynb
+.condarc		.tcshrc			Library			opt
+(base) rijuljain@Rijuls-MacBook-Pro ~ % nano .zprofile
+
+
+
+
+  GNU nano 2.0.6                      File: .zprofile                                        Modified  
+
+export PATH=${PATH}:/usr/local/mysql-8.0.28-macos11-arm64/bin
+# Setting PATH for Python 3.10
+# The original version is saved in .zprofile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"
+export PATH
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+File Name to Write: .zprofile                                                                          
+^G Get Help              ^T To Files              M-M Mac Format           M-P Prepend
+^C Cancel                M-D DOS Format           M-A Append               M-B Backup File

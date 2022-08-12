@@ -1,0 +1,175 @@
+Last login: Mon Apr 25 08:45:25 on ttys000
+(base) rijuljain@Rijuls-MacBook-Pro ~ % pip3 install mysql-connector-python
+Requirement already satisfied: mysql-connector-python in ./opt/anaconda3/lib/python3.9/site-packages (8.0.28)
+Requirement already satisfied: protobuf>=3.0.0 in ./opt/anaconda3/lib/python3.9/site-packages (from mysql-connector-python) (3.20.0)
+(base) rijuljain@Rijuls-MacBook-Pro ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use reviewer;
+Database changed
+mysql> desc movies;
+ERROR 1146 (42S02): Table 'reviewer.movies' doesn't exist
+mysql> desc movie;
+ERROR 1146 (42S02): Table 'reviewer.movie' doesn't exist
+mysql> desc movie;
+ERROR 1146 (42S02): Table 'reviewer.movie' doesn't exist
+mysql> desc movies;
+ERROR 1146 (42S02): Table 'reviewer.movies' doesn't exist
+mysql> create table movies(
+    -> id int(11
+    -> id int(11
+zsh: suspended  mysql -u root -p
+(base) rijuljain@Rijuls-MacBook-Pro ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use reviewiers;
+ERROR 1049 (42000): Unknown database 'reviewiers'
+mysql> use reviewier;
+ERROR 1049 (42000): Unknown database 'reviewier'
+mysql> create database RijulDB;
+ERROR 1007 (HY000): Can't create database 'RijulDB'; database exists
+mysql> create database RijulDB1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use RijulDB1;
+Database changed
+mysql> create table movies(
+    -> id int(11),
+    -> title varchar(100),
+    -> release_year YEAR(100),
+    -> genre varchar(100),
+    -> collection_in_mil DECIMAL(4,1)
+    -> );
+ERROR 1818 (HY000): Invalid display width. Use YEAR instead.
+mysql> create table movies(
+    -> id int(11),
+    -> title varchar(100),
+    -> release_year YEAR(4),
+    -> genre varchar(100),
+    -> collection_in_mil DECIMAL(4,1)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> desc movies;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id                | int          | YES  |     | NULL    |       |
+| title             | varchar(100) | YES  |     | NULL    |       |
+| release_year      | year         | YES  |     | NULL    |       |
+| genre             | varchar(100) | YES  |     | NULL    |       |
+| collection_in_mil | decimal(4,1) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> select * from movies;
++------+-------+--------------+------------+-------------------+
+| id   | title | release_year | genre      | collection_in_mil |
++------+-------+--------------+------------+-------------------+
+| 3564 | RRR   |         2022 | DFJJF      |             579.8 |
+| 3564 | RRR   |         2022 | DFJJF      |             579.8 |
+| 3564 | RRR   |         2022 | DFJJF      |             579.8 |
+| 1001 | RRR   |         2022 | fjfhgifkgi |              55.7 |
+| 1001 | RRR   |         2022 | fjfhgifkgi |              55.7 |
+| 1001 | RRR   |         2022 | fjfhgifkgi |              55.7 |
++------+-------+--------------+------------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> create table reviewer(
+    -> id int(11),
+    -> first_name varchar(100),
+    -> last_name varchar(100)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc reviewer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int          | YES  |     | NULL    |       |
+| first_name | varchar(100) | YES  |     | NULL    |       |
+| last_name  | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select movies.id, reviewer.id from movies
+    -> inner join reviewer on movies.id = reviewer.id order by id;
+ERROR 1052 (23000): Column 'id' in order clause is ambiguous
+mysql> alter table
+    -> ^C
+mysql> alter table movies
+    -> modify id int(11) null;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc movies;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id                | int          | YES  |     | NULL    |       |
+| title             | varchar(100) | YES  |     | NULL    |       |
+| release_year      | year         | YES  |     | NULL    |       |
+| genre             | varchar(100) | YES  |     | NULL    |       |
+| collection_in_mil | decimal(4,1) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table movies
+    -> change column id movie_id
+    -> int(11) not null;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc movies;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| movie_id          | int          | NO   |     | NULL    |       |
+| title             | varchar(100) | YES  |     | NULL    |       |
+| release_year      | year         | YES  |     | NULL    |       |
+| genre             | varchar(100) | YES  |     | NULL    |       |
+| collection_in_mil | decimal(4,1) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select movies.id, reviewer.id from movies
+    -> inner join reviewer on movies.id =^Ceviewer.id order by id;
+mysql> select movies.movie_id, reviewer.id from movies
+    -> inner join reviewer on movies.movie_id = reviewer.id order ^C id;
+mysql> select movies.movie_id, reviewer.id 
+    -> FROM movies
+    -> inner join reviewer
+    -> on movies.movie_id = reviewer.id
+    -> order by movie_id;
+Empty set (0.00 sec)
+
+mysql> create table ratings(
+    -> movie_id int(11),
+    -> reviewer_id int(11),
+    -> rating decimal(2,1)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> 

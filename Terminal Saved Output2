@@ -1,0 +1,198 @@
+Last login: Tue Apr 19 09:25:45 on ttys000
+(base) rijuljain@Rijuls-MacBook-Pro ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 47
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use reviewers;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc reviewer;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| fname | varchar(100) | YES  |     | NULL    |       |
+| lname | varchar(100) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc movies;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id                | int          | NO   | PRI | NULL    |       |
+| title             | varchar(100) | YES  |     | NULL    |       |
+| release_year      | year         | YES  |     | NULL    |       |
+| genre             | varchar(100) | YES  |     | NULL    |       |
+| collection_in_mil | decimal(4,1) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> 
+zsh: suspended  mysql -u root -p
+(base) rijuljain@Rijuls-MacBook-Pro ~ % pip install mysql-connector-python
+Requirement already satisfied: mysql-connector-python in ./opt/anaconda3/lib/python3.9/site-packages (8.0.28)
+Requirement already satisfied: protobuf>=3.0.0 in ./opt/anaconda3/lib/python3.9/site-packages (from mysql-connector-python) (3.20.0)
+(base) rijuljain@Rijuls-MacBook-Pro ~ % pip install mysql
+Requirement already satisfied: mysql in ./opt/anaconda3/lib/python3.9/site-packages (0.0.3)
+Requirement already satisfied: mysqlclient in ./opt/anaconda3/lib/python3.9/site-packages (from mysql) (2.1.0)
+(base) rijuljain@Rijuls-MacBook-Pro ~ % conda install mysql-connector-python
+Collecting package metadata (current_repodata.json): done
+Solving environment: failed with initial frozen solve. Retrying with flexible solve.
+Solving environment: failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): done
+Solving environment: failed with initial frozen solve. Retrying with flexible solve.
+Solving environment: - 
+Found conflicts! Looking for incompatible packages.
+This can take several minutes.  Press CTRL-C to abort.
+failed                                                                          
+
+UnsatisfiableError: The following specifications were found
+to be incompatible with the existing python installation in your environment:
+
+Specifications:
+
+  - mysql-connector-python -> python[version='>=2.7,<2.8.0a0|>=3.7,<3.8.0a0|>=3.8,<3.9.0a0|>=3.6,<3.7.0a0|>=3.5,<3.6.0a0']
+
+Your python: python=3.9
+
+If python is on the left-most side of the chain, that's the version you've asked for.
+When python appears to the right, that indicates that the thing on the left is somehow
+not available for the python version you are constrained to. Note that conda will not
+change your python version to a different minor version unless you explicitly specify
+that.
+
+
+
+(base) rijuljain@Rijuls-MacBook-Pro ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 48
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create view trainer as
+    -> select course_nm, course_trainer
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> use rijuldb;
+Database changed
+mysql> create view trainer as 
+    -> select course_nm, course_trainer;
+ERROR 1054 (42S22): Unknown column 'course_nm' in 'field list'
+mysql> create view trainer as
+    -> select course_nm, course_trainer
+    -> from tables;
+ERROR 1146 (42S02): Table 'rijuldb.tables' doesn't exist
+mysql> create view trainer as
+    -> select course_nm, course_trainer
+    -> from ^C
+mysql> use movies;
+ERROR 1049 (42000): Unknown database 'movies'
+mysql> use reviewers;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create view trainer as
+    -> select course_nm, course_trainer
+    -> from movies;
+ERROR 1054 (42S22): Unknown column 'course_nm' in 'field list'
+mysql> create view trainer as
+    -> select id, title
+    -> from movies;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from trainer;
++-----+-----------+
+| id  | title     |
++-----+-----------+
+| 111 | ElegantRJ |
++-----+-----------+
+1 row in set (0.01 sec)
+
+mysql> desc movies;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| id                | int          | NO   | PRI | NULL    |       |
+| title             | varchar(100) | YES  |     | NULL    |       |
+| release_year      | year         | YES  |     | NULL    |       |
+| genre             | varchar(100) | YES  |     | NULL    |       |
+| collection_in_mil | decimal(4,1) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table marks(
+    -> marks int(11),
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> subject vachar(100)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachar(100)' at line 5
+mysql> create table marks(
+    -> marks int(11),
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> subject vachar(100)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachar(100)
+)' at line 5
+mysql> create table marks(
+    -> marks int(11),
+    -> fname varchar(100),
+    -> lname varchar(100),
+    -> subject varchar(100)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc marks;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| marks   | int          | YES  |     | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(100) | YES  |     | NULL    |       |
+| subject | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into marks values(42, 'Rijul', 'Jain', 'Python');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into marks values(38, 'Rijul', 'Jain', 'DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into marks values(40, 'Rijul', 'Jain', 'Maths');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from marks;
++-------+-------+-------+---------+
+| marks | fname | lname | subject |
++-------+-------+-------+---------+
+|    42 | Rijul | Jain  | Python  |
+|    38 | Rijul | Jain  | DBMS    |
+|    40 | Rijul | Jain  | Maths   |
++-------+-------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> 
